@@ -38,6 +38,16 @@
 			<!-- test라는 폴더 아래의 코드에만 적용하겠다!!! -->
 		</dependency>
 
+		<!-- jdbc설정 -->
+		
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+
 		<!-- https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client -->
 		<dependency>
 			<groupId>org.mariadb.jdbc</groupId>
@@ -45,7 +55,7 @@
 			<version>3.1.4</version>
 		</dependency>
 
-		<!--  -->
+		<!-- -->
 		<dependency>
 			<groupId>com.zaxxer</groupId>
 			<artifactId>HikariCP</artifactId>

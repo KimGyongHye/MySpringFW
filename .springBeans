@@ -11,6 +11,7 @@
 		<config>src/main/resources/spring-beans-annot.xml</config>
 		<config>src/main/resources/service-beans-strategy1.xml</config>
 		<config>src/main/resources/service-beans-strategy2.xml</config>
+		<config>src/main/resources/spring-beans-user.xml</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>
