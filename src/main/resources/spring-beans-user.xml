@@ -15,4 +15,21 @@
 		p:jdbcUrl="${db.url}" 
 		p:username="${db.username}" 
 		p:password="${db.password}" ></bean>
+		
+	<!-- MyBatis-Spring의 SqlSessionFactoryBean를 스프링빈으로 등록  -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="configLocation" value="classpath:mybatis/SqlMapConfig.xml"></property>
+		<property name="mapperLocations">
+			<list>
+				<value>classpath:mybatis/*Mapper.xml</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- sqlSession을 사용하기 위해   -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory"></constructor-arg>
+	</bean>
+	
 </beans>

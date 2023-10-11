@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ public class UserDBTest {
 
 	@Autowired
 	DataSource dataSource;
+	
+	@Autowired
+	SqlSessionFactory sqlSessionFactory;
 	
 	@Test
 	public void dbTest() {
@@ -33,6 +37,11 @@ public class UserDBTest {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@Test
+	public void sqlSessionFactoryTest() {
+		System.out.println(sqlSessionFactory.getClass().getName());
 	}
 	
 }
