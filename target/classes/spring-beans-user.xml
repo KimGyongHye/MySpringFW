@@ -9,14 +9,14 @@
 	<!-- 변수들을 어디다가 저장해두는지 명시  -->
 	<context:property-placeholder location="classpath:value.properties"/>
 	
-	<!-- DataSource 구현체인 HikariDataSource를 스프링빈으로 등록 -->
+	<!-- DataSource 구현체인 HikariDataSource를 스프링빈으로 등록 : 전략1-->
 	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
 		p:driverClassName="${db.driverClass}"
 		p:jdbcUrl="${db.url}" 
 		p:username="${db.username}" 
 		p:password="${db.password}" ></bean>
 		
-	<!-- MyBatis-Spring의 SqlSessionFactoryBean를 스프링빈으로 등록  -->
+	<!-- MyBatis-Spring의 SqlSessionFactoryBean를 스프링빈으로 등록 : 전략1 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
 		<property name="configLocation" value="classpath:mybatis/SqlMapConfig.xml"></property>
@@ -27,9 +27,20 @@
 		</property>
 	</bean>
 	
-	<!-- sqlSession을 사용하기 위해   -->
+	<!-- sqlSession을 사용하기 위해 생성 후 생성자에 sqlSessionFactory 주입 : 전략1  -->
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg ref="sqlSessionFactory"></constructor-arg>
 	</bean>
+	
+	<!-- MyBatis-Spring의 MapperScannerConfigurer를 등록해서 Mapper를 스캔 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="myspring.user.dao.mapper"></property>
+		<property name="sqlSessionTemplateBeanName" value="sqlSession"></property>
+	</bean>
+	
+	<!-- DAO와 Service에 해당하는 빈들을 스캔하기 위한 것 : 전략 2 -->
+	<context:component-scan base-package="myspring.user">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
 	
 </beans>
