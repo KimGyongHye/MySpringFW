@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- Hello를 SpringBean으로 호출  -->
+	<!-- ref에는 변수명이 같은 bean(= id가 같은)을 참조할 수 있음 -->
+	<!-- scope="prototype"은 getBean를 할때마다  -->
+	<!-- 
+		<bean id="userHello" class="myspring.di.xml.Hello" scope="prototype" >
+			<property name="name" value="스프링!"></property>
+			<property name="printer" ref="conPrinter"></property>
+		</bean>
+	-->
+	
+	<bean id="myHello" class="myspring.di.xml.Hello">
+	<!-- setter injection -->
+		<property name="name" value="스프링"></property>
+		<property name="printer" ref="strPrinter"></property>
+	</bean>
+	
+	<bean id="myHelloCon" class="myspring.di.xml.Hello">
+		<constructor-arg index="0" value="생성자"></constructor-arg>
+		<constructor-arg index="1" ref="conPrinter"></constructor-arg>
+	</bean>
+	
+	<bean id="myHelloCollection" class="myspring.di.xml.Hello">
+		<property name="names">
+			<!-- 콜랙션 종류에 따라서 list, set, map 태그로 변경 -->
+			<list>
+				<value>Spring</value>
+				<value>SpringBoot</value>
+				<value>SpringCloud</value>
+			</list>
+			<!-- 
+				<map>
+					<entry key="Kim" value="28">
+				</map>
+			 -->
+		</property>
+	</bean>
+	
+	
+	
+	<!-- StringPrinter를 SpringBean으로 호출 -->
+	<bean id="strPrinter" class="myspring.di.xml.StringPrinter"></bean>
+	
+	<!-- ConsolePrinter를 SpringBean으로 호출  -->
+	<bean id="conPrinter" class="myspring.di.xml.ConsolePrinter"></bean>
+	
+</beans>
