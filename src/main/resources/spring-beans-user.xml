@@ -6,5 +6,13 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-
+	<!-- 변수들을 어디다가 저장해두는지 명시  -->
+	<context:property-placeholder location="classpath:value.properties"/>
+	
+	<!-- DataSource 구현체인 HikariDataSource를 스프링빈으로 등록 -->
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
+		p:driverClassName="${db.driverClass}"
+		p:jdbcUrl="${db.url}" 
+		p:username="${db.username}" 
+		p:password="${db.password}" ></bean>
 </beans>
